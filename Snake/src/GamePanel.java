@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int DELAY = 75; 
 
 
-    // These are mean to hold the coordinates for each body part of the snake
+    // These are meant to hold the coordinates for each body part of the snake
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
 
@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int appleY;
     // direction of the snake
     char direction = 'R';
-    // cheacker if the game is running
+    // checker if the game is running
     boolean running = false;
     Timer timer;
     Random random;
@@ -147,6 +147,7 @@ public class GamePanel extends JPanel implements ActionListener {
         // This is to shift the body parts of the snake to make it move
         for (int i = bodyParts ; i > 0 ; i--)
         {
+            // Also as an FYI, the body parts generate all in the same place in the orginal running of this program. However, as the timer ticks, it expands till it is at full length of 6 and then just continues to expand as the snake eats
             x[i] = x[i-1];
             y[i] = y[i-1];
         }
@@ -205,12 +206,12 @@ public class GamePanel extends JPanel implements ActionListener {
         {
             running = false;
         }
-        // Check if the head touches the top border 
+        // Check if the head touches the bottom border 
         if (y[0] > SCREEN_HEIGHT)
         {
             running = false;
         }
-        // Check if the head touches the bottom border
+        // Check if the head touches the top border
         if (y[0] < 0)
         {
             running = false;
@@ -228,16 +229,18 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.red);
         g.setFont( new Font("Ink Free", Font.BOLD, 40));
         
-        //font metric to line up text to the middle of the screen
+        // In a way, we are making our blue print, and then sending it to getFontMetrics to use when actuall creating the text on display
+
+        // font metric to line up text to the middle of the screen
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Score: " + applesEaten, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + applesEaten))/2, g.getFont().getSize());
 
         
-        //Game Over Text setupt
+        // Game Over Text setupt
         g.setColor(Color.red);
         g.setFont( new Font("Ink Free", Font.BOLD, 75));
         
-        //font metric to line up text to the middle of the screen
+        // font metric to line up text to the middle of the screen
         FontMetrics metrics2 = getFontMetrics(g.getFont());
 
         g.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over"))/2, SCREEN_HEIGHT/2);
@@ -247,8 +250,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // This is what is constantly running via the timer, so our game can functionally run
         if(running)
         {
+            System.out.println("" + x[0] + ", "+ y[0]);
             move();
             checkApple();
             checkCollisions();
@@ -266,7 +271,7 @@ public class GamePanel extends JPanel implements ActionListener {
             switch(e.getKeyCode())
             {
 
-                // These are our basic key movements, and the way they are  controlled
+                // These are our basic key movements, and the way they are controlled
                 case KeyEvent.VK_LEFT:
                     if(direction != 'R')
                     {

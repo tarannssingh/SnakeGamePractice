@@ -1,3 +1,4 @@
+// Import for the JFrame
 import javax.swing.JFrame;
 
 public class GameFrame extends JFrame{
@@ -21,5 +22,7 @@ public class GameFrame extends JFrame{
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
+        // As a note, the coordinate system works by 
+        // measuring from (0, 0) at the top left corner of the screen
     }
 }
